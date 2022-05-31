@@ -19,8 +19,9 @@ The problem consists of five philosophers sitting around a circular dinner table
 ![alt text](./images/philosopher_video.gif)
 
 ### Badge
+<p align="center">
 <img src="./images/philosophersm.png" width="150" height="150"/>
-
+</p>
 
 #### Arguments
 All arguments working with mandatory and bonus
