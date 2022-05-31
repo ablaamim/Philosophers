@@ -112,10 +112,6 @@ name  | prototype | description |
 * [Multi Threaded Programming Video](https://www.youtube.com/watch?v=OgnLaXwLC8Y) by Arif Butt
 * [Synchronization among Threads Video](https://www.youtube.com/watch?v=SvFr7rPWI3g&list=PL7B2bn3G_wfC-mRpG7cxJMnGWdPAQTViW&index=47) by Arif Butt
 * [Multithreaded Programming](https://randu.org/tutorials/threads/)
-* [Threads questions and answers](https://www.notion.so/Philosophers-2b872948598e4f0cba91c66d8b5ba821) by [Joyce Macksuele](https://github.com/joycemacksuele)
-* [Delay_ometer](https://github.com/nesvoboda/socrates) by [Arseniy Shishaev](https://github.com/nesvoboda)
-* [Philosooher Visualizer](https://nafuka11.github.io/philosophers-visualizer/) by [Nafuka](https://github.com/nafuka11)
-* [Notion with study materials](https://grizzly-muenster-737.notion.site/Philosophers-55c385e0a6224d629c86231821e3ce10) by [Laís Arena](https://github.com/laisarena)
 * [ASCIImoji](http://asciimoji.com/)
 
 ---
