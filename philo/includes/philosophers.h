@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:24 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/05/31 14:58:41 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/05/31 22:43:52 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <limits.h>
 
 # define FEW_ARGS "Error : too few args\n"
 # define MANY_ARGS "Error : too many args\n"
@@ -63,6 +64,7 @@ int		main(int argc, char **argv);
 void	ft_init_arguments(int argc, char **argv, t_data *data);
 void	ft_parser(int argc, char **argv);
 int		ft_isdigit(int c);
-int		ft_atoi(char *argv);
+long	ft_atol(char *argv);
+int		ft_atoi(char *str);
 
 #endif
