@@ -19,6 +19,10 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define FEW_ARGS "Error : too few args\n"
+# define MANY_ARGS "Error : too many args\n"
+# define INVALID_ARGS "Error : invalid args\n"
+
 typedef enum e_status
 {
 	TOOK_A_FORK = 1,
@@ -55,6 +59,10 @@ typedef struct s_philo
 	t_data			*data;
 }	t_philo;
 
-
+int		main(int argc, char **argv);
+void	ft_init_arguments(int argc, char **argv, t_data *data);
+void	ft_parser(int argc, char **argv);
+int		ft_isdigit(int c);
+int		ft_atoi(char *argv);
 
 #endif

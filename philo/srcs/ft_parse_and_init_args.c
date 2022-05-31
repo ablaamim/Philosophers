@@ -23,17 +23,16 @@ void    ft_parser(int argc, char **argv)
         j = -1;
         while(argv[i][++j])
         {
-            if (!ft_isdigit(argv[i][j]) || ft_atoi(argv[i]) > 2147483647
-				|| ft_atoi(argv[i]) <= 0)
+            if (!ft_isdigit(argv[i][j]))
             {
-                write(2, INVALID_ARGS, sizeof(INVALID_ARGS));
+                write(2, "Error\n", sizeof("Error\n"));
                 exit(EXIT_FAILURE);
             }
         }
         if (argc > 6)
-		    write(2, MANY_ARGS, sizeof(MANY_ARGS));
+		    write(2, "Too many args\n", sizeof("Too many args\n"));
 	    else if (argc < 5)
-		    write(2, FEW_ARGS, sizeof(FEW_ARGS));
+		    write(2, "Too few args\n", sizeof("Too few args\n"));
 	    else
 		    return ;
         exit(EXIT_FAILURE);

@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_data			*data;
+	t_data			data;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 
