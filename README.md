@@ -1,19 +1,28 @@
-# Philosophers
+# Philosophers :
+
+---
+
+<p align="center">
+<img src="./images/philosophersm.png" width="150" height="150"/>
+</p>
+
+---
+
 In computer science, [The Dining Philosopher Problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem) is an example problem often used in concurrent algorithm design to illustrate synchronization issues and techniques for resolving them.
 
 ---
 
-### What is Philosophers?
+### What is Philosophers ?
 
 ---
 
-Philosophers is an individual project at [1337](1337.ma) that requires us to solve [The Dining Philosopher Problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem) problem using threads, processes, mutex and semaphores.
+Philosophers is an individual project at 1337 school that requires us to solve [The Dining Philosopher Problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem) problem using threads, processes, mutex and semaphores.
 The mandatory part must be solved using [threads](https://man7.org/linux/man-pages/man7/pthreads.7.html) and [mutex](https://www.unix.com/man-page/linux/5/mutex/). The solution was implemented using a monitoring thread, which checks if any philosopher has died and warns others to stop ([locking mutex](https://linux.die.net/man/3/pthread_mutex_lock)).
 The bonus consists of using [processes](https://stackoverflow.com/questions/200469/what-is-the-difference-between-a-process-and-a-thread#:~:text=A%20process%20is%20a%20collection,concurrently%20within%20the%20same%20process.) instead of threads and [semaphores](https://man7.org/linux/man-pages/man7/sem_overview.7.html) instead of mutex, to solve it the solution used was to implement the death check between the [sleeping](https://man7.org/linux/man-pages/man3/usleep.3.html) times, avoiding the problem of reporting the death of a philosopher with more than 10ms.
 
 ---
 
-#### Problem statement
+#### Problem statement :
 
 ---
 
@@ -25,7 +34,7 @@ The problem consists of five philosophers sitting around a circular dinner table
 
 ---
 
-### Preview
+### Preview :
 
 ---
 
@@ -35,17 +44,7 @@ The problem consists of five philosophers sitting around a circular dinner table
 
 ---
 
-### Badge
-
----
-
-<p align="center">
-<img src="./images/philosophersm.png" width="150" height="150"/>
-</p>
-
----
-
-#### Arguments
+#### Arguments :
 
 ---
 
@@ -87,6 +86,10 @@ All arguments working with mandatory and bonus
 
 ---
 
+#### Functions :
+
+---
+
 name  | prototype | description |
 ---|------|------|
 [**usleep**](https://man7.org/linux/man-pages/man3/usleep.3.html) | int usleep(useconds_t usec); |shall cause the calling thread to be suspended from execution until either the number of realtime microseconds specified by the argument useconds has elapsed or a signal is delivered to the calling thread and its action is to invoke a signal-catching function or to terminate the process. The suspension time may be longer than requested due to the scheduling of other activity by the system.			|
@@ -101,7 +104,7 @@ name  | prototype | description |
 
 ---
 
-## study_resources
+## Study resources :
 
 ---
 
