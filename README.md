@@ -21,50 +21,6 @@ The problem consists of five philosophers sitting around a circular dinner table
 ### Badge
 <img src="./images/philosophersm.png" width="150" height="150"/>
 
-#### Objectives
-- Unix logic
-
-#### Skills
-- Rigor
-- Imperative programming
-- Unix
-
-#### My grade
-<img src="./images/score2.png" width="150" height="150"/>
-
-
-## Getting started
-**Follow the steps below**
-<!-- number_of_philosophers time_to_die
-time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat] -->
-```bash
-# Clone the project and access the folder
-git clone https://github.com/wwwwelton/philosophers && cd philosophers/
-
-# Access the folder philo for the program that uses threads and mutex
-cd philo
-
-# or
-
-# Access the folder philo_bonus for the program that uses processes and semaphores
-cd philo_bonus
-
-# Run make so you can build the program
-make
-
-# Run the program with the example arguments
-./philo 5 800 200 200 10
-
-# or
-
-# Run the program with the example arguments for the bonus part
-./philo_bonus 5 800 200 200 10
-
-# Clean output objects with
-make fclean
-
-# Well done!
-```
 
 #### Arguments
 All arguments working with mandatory and bonus
@@ -102,15 +58,3 @@ All arguments working with mandatory and bonus
 		 </tr>
     </tbody>
 </table>
-
-## Updating
-
-The project is regularly updated with bug fixes and code optimization.
-
-## 📝 License
-
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
----
-
-Made by Welton Leite 👋 [See my linkedin](https://www.linkedin.com/in/welton-leite-b3492985/)
