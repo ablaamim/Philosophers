@@ -34,10 +34,6 @@ The problem consists of five philosophers sitting around a circular dinner table
 
 ---
 
-### Preview :
-
----
-
 #### Arguments :
 
 ---
