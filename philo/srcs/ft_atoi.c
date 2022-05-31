@@ -7,13 +7,13 @@ int ft_atoi(char *argv)
 
     res = 0x0;
     sign = 0x1;
-    while (*argv >= 7 && *argv <= 14)
+    while ((*argv >= 7 && *argv <= 14) || *argv == 32)
         argv++;
     if (*argv == '-')
         sign *= -1;
-    while (*argv == '+' || *argv == '-')
+    if (*argv == '+' || *argv == '-')
         argv++;
-    while (*argv >= 48 && *argv <= 57)
+    while (*argv && (*argv >= 48 && *argv <= 57))
     {
         res = res * 10 + *argv - 48;
         argv++;

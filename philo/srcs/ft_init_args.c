@@ -23,8 +23,8 @@ void    ft_parser(int argc, char **argv)
         j = -1;
         while(argv[i][++j])
         {
-            if (!ft_isdigit(argv[i][j]) || ft_atoi(argv[i]) > 2147483647
-				|| ft_atoi(argv[i]) <= 0)
+            printf("%s\n", argv[i][j]);
+            if (!ft_isdigit(argv[i][j]) || ft_atoi(argv[i]) == 0)
             {
                 write(2, INVALID_ARGS, sizeof(INVALID_ARGS));
                 exit(EXIT_FAILURE);
