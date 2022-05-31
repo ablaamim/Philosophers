@@ -38,12 +38,6 @@ The problem consists of five philosophers sitting around a circular dinner table
 
 ---
 
-**Mandatory vs Bonus**
-
-![alt text](./images/philosopher_video.gif)
-
----
-
 #### Arguments :
 
 ---
