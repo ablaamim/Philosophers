@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:30:24 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/05/31 22:43:52 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:40:11 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				n_times_must_eat;
+	int				n_times_each_philo_must_eat;
 	long			firststamp;
 	pthread_mutex_t	*lock_print;
 	pthread_mutex_t	*lock_dinner;

@@ -6,14 +6,16 @@
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/31 14:29:55 by ablaamim          #+#    #+#              #
-#    Updated: 2022/05/31 22:51:13 by ablaamim         ###   ########.fr        #
+#    Updated: 2022/06/26 16:20:14 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc
+
 FLAGS = -Wall -Wextra -Werror
+
 RM = rm -rf
 
 HEADER = ../includes/philosophers.h
@@ -43,4 +45,4 @@ fclean :
 
 re : fclean all
 
-.PHONY : all clean fclean 
+.PHONY : all clean fclean

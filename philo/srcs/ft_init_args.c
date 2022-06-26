@@ -6,11 +6,15 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:58:57 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/05/31 22:43:14 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/06/26 17:03:28 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+/*
+ * Parse input and perform error handling.
+*/
 
 void	ft_parser(int argc, char **argv)
 {
@@ -40,7 +44,20 @@ void	ft_parser(int argc, char **argv)
 	}
 }
 
+/*
+ * Parse arguments.
+ * Init arguments from input.
+
+*/
+
 void	ft_init_arguments(int argc, char **argv, t_data *data)
 {
 	ft_parser(argc, argv);
+	data->number_of_philos = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	data->n_times_each_philo_must_eat = -1;
+	if (argc == 6)
+		data->n_times_each_philo_must_eat = ft_atoi(argv[5]);
 }

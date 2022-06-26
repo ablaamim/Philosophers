@@ -6,11 +6,17 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:33:59 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/05/31 14:56:53 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/06/26 16:23:29 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+/*
+ * Entry point of my program.
+ *
+ * - Init arguments : Parser.
+*/
 
 int	main(int argc, char **argv)
 {
