@@ -1,29 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   finite_loop_routine.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 14:33:59 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/06/26 16:23:29 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/07/11 11:43:53 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/07/11 16:42:01 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include <unistd.h>
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-/*
- * Entry point of my program.
- *
- * - Init arguments : Parser.
-*/
+void	*myturn(void *arg)
+{
+	int	i;
+
+	i = 0x0;
+	while(i < 8)
+	{
+		sleep(1);
+		printf("My turn %d\n", i);
+		i++;
+	}
+	return (0x0);
+}
+
+void	your_turn(void)
+{
+	int	i;
+
+	i = 0x0;
+	while (i < 3)
+	{
+		sleep(1);
+		printf("Your turn %d\n", i);
+		i++;
+	}
+}
 
 int	main(int argc, char **argv)
 {
-	t_data			data;
-	pthread_mutex_t	*forks;
-	t_philo			*philos;
+	pthread_t	new_thread;
 
-	ft_init_arguments(argc, argv, &data);
+	pthread_create(&new_thread, 0x0, myturn, 0x0);
+	your_turn();
+	pthread_join(new_thread, 0x0);
 	return (EXIT_SUCCESS);
 }
