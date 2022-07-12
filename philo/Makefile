@@ -6,7 +6,7 @@
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/31 14:29:55 by ablaamim          #+#    #+#              #
-#    Updated: 2022/06/26 16:20:14 by ablaamim         ###   ########.fr        #
+#    Updated: 2022/07/12 15:32:02 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,13 @@ NAME = philo
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 RM = rm -rf
 
 HEADER = ../includes/philosophers.h
 
-SRC = ./srcs/main.c \
-	  ./srcs/ft_atoi.c \
-	  ./srcs/ft_atol.c \
-	  ./srcs/ft_init_args.c \
-	  ./srcs/ft_isdigit.c \
+SRC = ./sources/main.c \
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
