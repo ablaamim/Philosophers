@@ -6,7 +6,7 @@
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/31 14:29:55 by ablaamim          #+#    #+#              #
-#    Updated: 2022/07/12 15:32:02 by ablaamim         ###   ########.fr        #
+#    Updated: 2022/07/13 21:21:00 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ RM = rm -rf
 HEADER = ../includes/philosophers.h
 
 SRC = ./sources/main.c \
+	  ./sources/libft_utils.c\
+	  ./sources/philosophers_parser.c \
+	  ./sources/initialize_data.c \
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
