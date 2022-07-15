@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 15:30:04 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/07/13 21:24:27 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/07/13 21:39:41 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int	main(int argc, char **argv)
 
 	philosophers_parser(argc, argv);
 	initialize_data(argc, argv, &data);
+	initialize_forks(data.number_of_philosophers, &data, &forks, &philos);
 	return (EXIT_SUCCESS);
 }

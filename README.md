@@ -7,6 +7,9 @@
 </p>
 
 ---
+<p align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg" width="500" height="500">
+</p>
 
 In computer science, [The Dining Philosopher Problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem) is an example problem often used in concurrent algorithm design to illustrate synchronization issues and techniques for resolving them.
 
@@ -22,7 +25,7 @@ The bonus consists of using [processes](https://stackoverflow.com/questions/2004
 
 ---
 
-#### Problem statement :
+#### Problem :
 
 ---
 
@@ -76,7 +79,7 @@ All arguments working with mandatory and bonus
 
 ---
 
-#### Functions :
+#### Allowed functions :
 
 ---
 

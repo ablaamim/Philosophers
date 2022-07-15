@@ -6,11 +6,15 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 21:11:57 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/07/13 21:25:34 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/07/13 21:46:17 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+/*
+ * Initialize data with arguments input values in the given order.
+*/
 
 void	initialize_data(int argc, char **argv, t_data *data)
 {
@@ -26,4 +30,11 @@ void	initialize_data(int argc, char **argv, t_data *data)
 	data->number_of_times_each_philosopher_must_eat = -1;
 	if (argc == 6)
 		data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
+}
+
+void	initialize_philosophers(int n, t_data *data, pthread_mutex_t **forks, t_philo *philos)
+{
+	int	i;
+
+	*forks = malloc (sizeof (pthread_mutex_t *) * n);
 }
