@@ -6,7 +6,7 @@
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/31 14:29:55 by ablaamim          #+#    #+#              #
-#    Updated: 2022/08/04 15:03:13 by ablaamim         ###   ########.fr        #
+#    Updated: 2022/08/04 16:59:26 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ HEADER = ../includes/philosophers.h
 
 SRC = ./sources/main.c \
 	  ./sources/initialize_and_parse_arguments.c \
+	  ./sources/libft_utils.c \
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
