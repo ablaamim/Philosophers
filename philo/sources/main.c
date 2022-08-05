@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:26 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/08/05 17:02:42 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/08/05 18:17:59 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,8 @@ int	main(int argc, char **argv)
 	ft_parse_and_initialize(argc, argv, &data);
 	initializer_of_data(&data, &forks,  &philosophers);
 	initialize_forks(data.number_of_philos, &data, &forks, &philosophers);
+	initialize_philosophers(data.number_of_philos, &data, &forks, \
+			&philosophers);
+	//philosphers_simulation(data.number_of_philos, philosophers);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:03:24 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/08/05 17:03:47 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:30:11 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define MANY_ARGS "Error : Too many argumnents\n"
 # define FEW_ARGS "Error : Too few arguments\n"
 # define MUTEX_ALLOC "Error : Failed to allocate mutex\n"
+# define PHILO_ALLOC "Error : Failed to allocate philosophers\n"
 
 /*
  * UTILS :
@@ -53,11 +54,11 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	pthread_t		thread;
+	t_data			*data;
 	int				meals;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
-	t_data			*data;
+	int				enumerator;
 }	t_philo;
 
 /*
@@ -69,7 +70,9 @@ void	initializer_of_data(t_data *data, pthread_mutex_t **forks, t_philo \
 		**philosophers);
 void	initialize_forks(int n, t_data *data, pthread_mutex_t **forks, \
 		t_philo **philosophers);
-void	simulation_failed(int n, t_data *data, pthread_mutex_t *forks, t_philo \
-		*philosophers);
+void	simulation_failed(int n_of_philos, t_data *data, pthread_mutex_t \
+		*forks, t_philo *philosophers);
+void	initialize_philosophers(int n_of_philos, t_data *data, pthread_mutex_t\
+		**forks, t_philo **philosophers);
 
 #endif
