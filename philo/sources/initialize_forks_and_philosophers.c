@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*   initialize_forks_and_philosophers.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 16:42:09 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/08/05 16:13:08 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/08/05 16:28:31 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/08/05 17:06:32 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-bool	ft_isdigit(int c)
-{
-	return (c >= 48 && c <= 57);
-}
+/*
+ * INITIALIZE FORKS.
+*/
 
-int	ft_atoi(char *str)
+void	initialize_forks(int n, t_data *data, pthread_mutex_t **forks,  \
+		t_philo **philosophers)
 {
-	long	res;
-	int		sign;
+	int	i;
 
-	if (str == 0x0)
-		return (0x0);
-	res = 0x0;
-	sign = 0x1;
-	while (*str == 32 || (*str >= 7 && *str <= 14))
-		str++;
-	if (*str == '-')
-		sign *= -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= 48 && *str <= 57)
+	i = -1;
+	*forks = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * n);
+	if (*forks == 0x0)
 	{
-		res = res * 10 + *str - 48;
-		str++;
+		write(2, MUTEX_ALLOC, sizeof(MUTEX_ALLOC));
+		simulation_failed(0x0, data, *forks, *philosophers);
 	}
-	return (res * sign);
+	i = -1;
+	while (++i < n)
+		pthread_mutex_init(&(*forks)[i], 0x0);
 }

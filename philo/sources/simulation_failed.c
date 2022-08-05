@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*   simulation_failed.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 16:42:09 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/08/05 16:13:08 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/08/05 16:47:26 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/08/05 16:53:46 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-bool	ft_isdigit(int c)
-{
-	return (c >= 48 && c <= 57);
-}
+/*
+ * simulation_failed : Free data and exit program.
+*/
 
-int	ft_atoi(char *str)
+void	simulation_failed(int n, t_data *data, pthread_mutex_t *forks, \
+		t_philo *philosophers)
 {
-	long	res;
-	int		sign;
+	int	i;
 
-	if (str == 0x0)
-		return (0x0);
-	res = 0x0;
-	sign = 0x1;
-	while (*str == 32 || (*str >= 7 && *str <= 14))
-		str++;
-	if (*str == '-')
-		sign *= -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= 48 && *str <= 57)
-	{
-		res = res * 10 + *str - 48;
-		str++;
-	}
-	return (res * sign);
+	i = -1;
+	while (++i < n && forks)
+		pthread_mutex_destroy(&forks[i]);
+	free(forks);
+	free(philosophers);
 }

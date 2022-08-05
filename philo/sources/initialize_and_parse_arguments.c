@@ -6,20 +6,36 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:06:51 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/08/04 19:06:58 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/08/05 16:32:55 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
 /*
- * Parse arguments and error handling
+ * Initialize the rest of struct members.
+*/
+
+void	initializer_of_data(t_data *data, pthread_mutex_t **forks,\
+		t_philo **philosophers)
+{
+	*forks = 0x0;
+	*philosophers = 0x0;
+	if (data->number_of_philos == 1)
+		data->philo_is_alone = 1;
+	else
+		data->philo_is_alone = 0x0;
+	data->over = 0x0;
+}
+
+/*
+ * Parse arguments and manage all error handling.
 */
 
 void	ft_parser(int argc, char **argv)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0x1;
 	j = 0x0;
@@ -43,6 +59,10 @@ void	ft_parser(int argc, char **argv)
 	exit(EXIT_FAILURE);
 }
 
+/*
+ * Parser and initializer.
+*/
+
 void	ft_parse_and_initialize(int argc, char **argv, t_data *data)
 {
 	ft_parser(argc, argv);
@@ -58,6 +78,7 @@ void	ft_parse_and_initialize(int argc, char **argv, t_data *data)
 	if (argc == 6)
 	{
 		data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-		printf("==> Nb of times each philo must eat : %d\n", data->number_of_times_each_philosopher_must_eat);
+		printf("==> Nb of times each philo must eat : %d\n", \
+				data->number_of_times_each_philosopher_must_eat);
 	}
 }
