@@ -6,7 +6,7 @@
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/31 14:29:55 by ablaamim          #+#    #+#              #
-#    Updated: 2022/09/11 15:48:34 by ablaamim         ###   ########.fr        #
+#    Updated: 2022/09/11 21:38:05 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
 
 RM = rm -rf
 

@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:03:24 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/11 16:59:44 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:21:04 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
-	long			timestamp;
+	long			first_stamp;
 	pthread_mutex_t	*lock_printer;
 	pthread_mutex_t	*dinner_locker;
 }	t_data;
@@ -124,7 +124,8 @@ void	actions_printer(t_philo *philo, int action);
 void	*philo_go_eat_alone(t_philo *philo);
 void	philo_eat(t_philo *philo);
 int		dinner_is_over(t_philo *philo);
-int		last_supper_setter(t_philo *philo);
+void	last_supper_setter(t_philo *philo);
+int		last_supper_getetr(t_philo *philo);
 void	meals_setter(t_philo *philo);
 int		meals_getter(t_philo *philo);
 void	philo_go_sleep(t_philo *philo);

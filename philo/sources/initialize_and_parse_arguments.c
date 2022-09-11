@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:06:51 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/11 16:15:16 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/11 21:31:16 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	initializer_of_data(t_data *data, pthread_mutex_t **forks,\
 		data->philo_is_alone = 1;
 	else
 		data->philo_is_alone = 0x0;
-	data->timestamp = 0x0;
+	data->first_stamp = 0x0;
 	data->dinner_over = 0x0;
 	data->lock_printer = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * 0x1);
 	data->dinner_locker = (pthread_mutex_t *) malloc(sizeof (pthread_mutex_t) * 0x1);
@@ -57,7 +57,7 @@ void	ft_parser(int argc, char **argv)
 			write(2, "Error\n", sizeof("Error\n"));
 			exit(EXIT_FAILURE);
 		}
-		printf("ARG[%d] => %s\n", i, argv[i]);
+		//printf("ARG[%d] => %s\n", i, argv[i]);
 		i++;
 	}
 	if (argc > 6)
@@ -77,18 +77,18 @@ void	ft_parse_and_initialize(int argc, char **argv, t_data *data)
 {
 	ft_parser(argc, argv);
 	data->number_of_philos = ft_atoi(argv[1]);
-	printf("==> Number of philos : %d\n", data->number_of_philos);
+	//printf("==> Number of philos : %d\n", data->number_of_philos);
 	data->time_to_die = ft_atoi(argv[2]);
-	printf("==> Time to die : %d\n", data->time_to_die);
+	//printf("==> Time to die : %d\n", data->time_to_die);
 	data->time_to_eat = ft_atoi(argv[3]);
-	printf("==> Time to eat : %d\n", data->time_to_eat);
+	//printf("==> Time to eat : %d\n", data->time_to_eat);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	printf("==> Time to sleep : %d\n", data->time_to_sleep);
+	//printf("==> Time to sleep : %d\n", data->time_to_sleep);
 	data->number_of_times_each_philosopher_must_eat = -1;
 	if (argc == 6)
 	{
 		data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
-		printf("==> Nb of times each philo must eat : %d\n", \
+	//	printf("==> Nb of times each philo must eat : %d\n", \
 				data->number_of_times_each_philosopher_must_eat);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 16:28:31 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/11 16:27:34 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:46:00 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	initialize_philosophers(int n_of_philos, t_data *data, pthread_mutex_t\
  * INITIALIZE FORKS.
  * Number of forks is equal to number of philosophers.
  * forks = mutex / shared memory..
+ * philosphers = threads.
 */
 
 void	initialize_forks(int n_of_philos, t_data *data, pthread_mutex_t \

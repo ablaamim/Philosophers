@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:26 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/11 17:17:20 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:45:16 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	main(int argc, char **argv)
 	initializer_of_data(&data, &forks,  &philosophers);
 	initialize_forks(data.number_of_philos, &data, &forks, &philosophers);
 	initialize_philosophers(data.number_of_philos, &data, &forks, &philosophers);
-	
 	philosophers_simulation(data.number_of_philos, philosophers);
 	end_simulation(data.number_of_philos, &data, forks, philosophers);
 	return (EXIT_SUCCESS);

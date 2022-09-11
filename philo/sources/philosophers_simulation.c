@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 22:50:02 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/11 17:04:01 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:46:18 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	all_of_them_ate(t_philo *philos)
 	i = -1;
 	while (++i < philos->data->number_of_philos)
 	{
-		if (meals_getter((&philos)[i]) == philos[i].data->number_of_times_each_philosopher_must_eat)
+		if (meals_getter(&philos[i]) == philos[i].data->number_of_times_each_philosopher_must_eat)
 			had_his_dinner++;
 	}
 	if (had_his_dinner == philos->data->number_of_philos)
@@ -36,11 +36,21 @@ void	jesus_last_supper(t_philo *philo)
 	pthread_mutex_unlock(philo->data->dinner_locker);
 }
 
+int		last_supper_getter(t_philo *philo)
+{
+	long	last_supper;
+
+	pthread_mutex_lock(philo->supper_locker);
+	last_supper = philo->last_supper;
+	pthread_mutex_unlock(philo->supper_locker);
+	return (last_supper);
+}
+
 void	*philosophers_supervisor(void *ptr)
 {
 	int		i;
 	long	time_current;
-	int		time_to_die;
+	long	time_to_die;
 	t_philo	*philos;
 
 	//printf("SUPERVISOR\n");
@@ -52,8 +62,8 @@ void	*philosophers_supervisor(void *ptr)
 		i = -1;
 		while (++i < philos->data->number_of_philos)
 		{
-			time_current = time_now(philos->data->timestamp);
-			if ((time_current - last_supper_setter(&philos[i])) > time_to_die)
+			time_current = time_now(philos->data->first_stamp);
+			if ((time_current - last_supper_getter(&philos[i])) > time_to_die)
 			{
 				jesus_last_supper(&philos[i]);
 				actions_printer(&philos[i], HAS_DIED);
@@ -72,6 +82,8 @@ int	philosophers_simulation(int n, t_philo *philos)
 
 	//printf("=========> SIMULATOR ===========\n");
 	i = -1;
+	philos->data->first_stamp = time_stamp();
+	//printf("==> TIMESTAMP AT SIMULATION  START : %5ld\n", philos->data->first_stamp);
 	while (++i < n)
 	{
 		//printf("thread creation\n");;
