@@ -6,14 +6,15 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:06:51 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/08/05 16:32:55 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:15:16 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
 /*
- * Initialize the rest of struct members.
+ * Initialize the rest of struct members defining data class with appropriate
+ * values.
 */
 
 void	initializer_of_data(t_data *data, pthread_mutex_t **forks,\
@@ -25,9 +26,18 @@ void	initializer_of_data(t_data *data, pthread_mutex_t **forks,\
 		data->philo_is_alone = 1;
 	else
 		data->philo_is_alone = 0x0;
-	data->over = 0x0;
+	data->timestamp = 0x0;
+	data->dinner_over = 0x0;
+	data->lock_printer = (pthread_mutex_t *) malloc(sizeof(pthread_mutex_t) * 0x1);
+	data->dinner_locker = (pthread_mutex_t *) malloc(sizeof (pthread_mutex_t) * 0x1);
+	if (data->lock_printer == 0x0 || data->dinner_locker == 0x0)
+	{
+		write(2, MUTEX_ALLOC, sizeof(MUTEX_ALLOC));
+		simulation_failed(0x0, data, *forks, *philosophers);
+	}
+	pthread_mutex_init(data->lock_printer, 0x0);
+	pthread_mutex_init(data->dinner_locker, 0x0);
 }
-
 /*
  * Parse arguments and manage all error handling.
 */
