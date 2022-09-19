@@ -1,50 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_and_parse_arguments.c                   :+:      :+:    :+:   */
+/*   ft_parse_and_initialize.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 19:06:51 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/16 18:33:21 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/09/16 18:03:22 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/09/17 21:54:52 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "../includes/philosophers_bonus.h"
+#include "../../philo/includes/philosophers.h"
 
-/*
- * Initialize the rest of struct members defining data class with appropriate
- * values.
-*/
-
-void	initializer_of_data(t_data *data, pthread_mutex_t **forks,\
-		t_philo **philosophers)
+void	initializer_of_data_sem(t_sem_data *data, sem_t **forks, t_sem_philo **philos)
 {
 	*forks = 0x0;
-	*philosophers = 0x0;
+	*philos = 0x0;
 	if (data->number_of_philos == 0x1)
 		data->philo_is_alone = 0x1;
 	else
 		data->philo_is_alone = 0x0;
 	data->first_stamp = 0x0;
-	data->dinner_over = 0x0;
-	data->lock_printer = (pthread_mutex_t *) \
-						 malloc(sizeof(pthread_mutex_t) * 0x1);
-	data->dinner_locker = (pthread_mutex_t *) \
-						  malloc(sizeof (pthread_mutex_t) * 0x1);
-	if (data->lock_printer == 0x0 || data->dinner_locker == 0x0)
+	data->lock_print = 0x0;
+	data->lock_print = sem_open("/lock_print", O_CREAT, 0777, 0x1);
+	if (data->lock_print == 0x0)
 	{
-		write(2, MUTEX_ALLOC, sizeof(MUTEX_ALLOC));
-		simulation_failed(0x0, data, *forks, *philosophers);
+		printf("System enable to create a semaphore\n");
+		//exit(EXIT_FAILURE); //MUST BE REPLACED
+		philosophers_exit(data, *forks, *philos, EXIT_FAILURE);
 	}
-	pthread_mutex_init(data->lock_printer, 0x0);
-	pthread_mutex_init(data->dinner_locker, 0x0);
 }
-/*
- * Parse arguments and manage all error handling.
-*/
 
-void	ft_parser(int argc, char **argv)
+void	ft_parse_sem(int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -55,10 +43,10 @@ void	ft_parser(int argc, char **argv)
 		j = -1;
 		while (argv[i][++j])
 		{
-			if (!isdigit(argv[i][j]) || ft_atoi(argv[i]) == 0x0)
+			if (!ft_isdigit(argv[i][j]) || ft_atoi(argv[i]) == 0x0)
 			{
 				write(2, "Error\n", sizeof("Error\n"));
-				exit(EXIT_FAILURE);
+				exit (EXIT_FAILURE);
 			}
 		}
 	}
@@ -68,16 +56,16 @@ void	ft_parser(int argc, char **argv)
 		write(2, FEW_ARGS, sizeof(FEW_ARGS));
 	else
 		return ;
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
 
 /*
- * Parser and initializer from user input
+ * PARSE AND INITIALIZE DATA FROM USER INPUT.
 */
 
-void	ft_parse_and_initialize(int argc, char **argv, t_data *data)
+void	ft_parse_and_initialize_sem(int argc, char **argv, t_sem_data *data)
 {
-	ft_parser(argc, argv);
+	ft_parse_sem(argc, argv);
 	data->number_of_philos = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);

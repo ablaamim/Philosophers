@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 14:03:24 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/11 19:21:04 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/15 19:18:21 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define IS_EATING 2
 # define IS_SLEEPING 3
 # define IS_THINKING 4
-# define HAS_DIED 4
+# define HAS_DIED 5
 
 /*
  * LIBFT UTILS :

@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 10:55:16 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/11 21:34:40 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/16 21:41:07 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	philo_think(t_philo *philo)
 
 void	*philo_go_eat_alone(t_philo *philo)
 {
-	//printf("==> GO EAT ALONE !\n");
 	pthread_mutex_lock(philo->fork_right);
 	actions_printer(philo, TOOK_FORK);
 	pthread_mutex_unlock(philo->fork_right);
@@ -61,14 +60,11 @@ void	*routine(void *ptr)
 	if (philo->enumerator % 2)
 		my_sleep(5);
 	if (philo->data->philo_is_alone)
-	{
-		//printf("==> PHILO IS ALONE\n");
 		return (philo_go_eat_alone(philo));
-	}
 	while (!dinner_is_over(philo))
 	{
 		philo_eat(philo);
-		if (meals_getter(philo)== philo->data->number_of_times_each_philosopher_must_eat)
+		if (meals_getter(philo) == philo->data->number_of_times_each_philosopher_must_eat)
 			return (0x0);
 		philo_go_sleep(philo);
 		philo_think(philo);

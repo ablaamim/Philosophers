@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 15:26:26 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/11 19:45:16 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/15 17:47:31 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	end_simulation(int n, t_data *data, pthread_mutex_t *forks, t_philo *philos
 	int	i;
 
 	i = -1;
-	while (++i < n)
+	while (++i < n && forks)
 		pthread_mutex_destroy(&forks[i]);
 	i = -1;
 	while (++i < n && philos)
@@ -46,8 +46,8 @@ void	end_simulation(int n, t_data *data, pthread_mutex_t *forks, t_philo *philos
 		pthread_mutex_destroy(data->dinner_locker);
 	free(data->lock_printer);
 	free(data->dinner_locker);
-	free(philos);
 	free(forks);
+	free(philos);
 }
 
 int	main(int argc, char **argv)
