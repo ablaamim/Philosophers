@@ -6,7 +6,7 @@
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/31 14:29:55 by ablaamim          #+#    #+#              #
-#    Updated: 2022/09/17 21:29:44 by ablaamim         ###   ########.fr        #
+#    Updated: 2022/09/22 12:44:52 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo_bonus
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 RM = rm -rf
 
@@ -29,6 +29,7 @@ SRC = ./sources/main.c \
 	 ./sources/actions_sem_philo.c \
 	 ../philo/sources/time_control.c \
 	 ../philo/sources/libft_utils.c \
+	 ./sources/simulation_failed.c \
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
 

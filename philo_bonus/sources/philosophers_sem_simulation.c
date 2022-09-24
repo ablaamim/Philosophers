@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:00:28 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/17 22:02:28 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:54:45 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	process_constructor(pid_t *process, int (*f) (void *), t_sem_philo *philo)
 		exit_code = f(philo);
 		philosophers_exit(philo->data, philo->forks, philo->philos, exit_code);
 	}
-	exit (exit_code);
+	return (exit_code);
 }
 
 int	joining_process(t_sem_philo *philos)
@@ -54,8 +54,12 @@ int	philosophers_sem_simulation(int n_philos, t_sem_philo *philos)
 
 	i = -1;
 	philos->data->first_stamp = time_stamp();
+	//printf("PHILO IS ALONE VAL = %d\n", philos->data->philo_is_alone);
 	while (++i < n_philos)
-		process_constructor(&philos[i].process, &actions, &philos[i]);
+	{
+		//printf("Create processes\n");
+		process_constructor(&philos[i].process, &ft_routine_sem, &philos[i]);
+	}
 	joining_process(philos);
 	return (0x0);
 }

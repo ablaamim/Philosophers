@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 20:18:50 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/17 22:01:28 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:04:51 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,21 @@ void	sleeper(int time_ms, t_sem_philo *philo)
 		actions_sem_printer(philo, HAS_DIED);
 		philosophers_exit(philo->data, philo->forks, philo->philos, EXIT_FAILURE);
 		//exit(1); // REPL;
+	}
+}
+
+void	philo_sem_try_wait(t_sem_philo *philo)
+{
+	long	current_time;
+
+	while(*(int*) philo->forks < 2)
+	{
+		current_time = time_now(philo->data->first_stamp);
+		if ((current_time - philo->last_supper) > philo->data->time_to_die)
+		{
+			actions_sem_printer(philo, HAS_DIED);
+			philosophers_exit(philo->data, philo->forks, philo->philos, EXIT_FAILURE);
+		}
+		usleep(10);
 	}
 }

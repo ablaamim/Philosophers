@@ -6,14 +6,14 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:48:11 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/17 21:53:59 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:21:10 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers_bonus.h"
 #include "../../philo/includes/philosophers.h"
 
-void	simulation_failed_sem(t_sem_data *data, sem_t *forks, t_sem_philo *philos)
+void	simulation_sema_end(t_sem_data *data, sem_t *forks, t_sem_philo *philos)
 {
 	sem_close(forks);
 	sem_close(data->lock_print);

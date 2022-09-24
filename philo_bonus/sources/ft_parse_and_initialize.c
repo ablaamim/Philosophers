@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 18:03:22 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/17 21:54:52 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:44:50 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 
 void	initializer_of_data_sem(t_sem_data *data, sem_t **forks, t_sem_philo **philos)
 {
+	sem_unlink("/lock_print");
+	sem_unlink("/forks");
 	*forks = 0x0;
 	*philos = 0x0;
-	if (data->number_of_philos == 0x1)
-		data->philo_is_alone = 0x1;
+	//printf("\n");
+	//printf("\ninitiazer of data, number_of_philos = %d\n\n\n", data->number_of_philos);
+	if (data->number_of_philos == 1)
+		data->philo_is_alone = 1;
 	else
 		data->philo_is_alone = 0x0;
 	data->first_stamp = 0x0;
@@ -67,6 +71,7 @@ void	ft_parse_and_initialize_sem(int argc, char **argv, t_sem_data *data)
 {
 	ft_parse_sem(argc, argv);
 	data->number_of_philos = ft_atoi(argv[1]);
+	//printf("NUMBER OF PHILOS PARSER = %d\n", data->number_of_philos);
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);

@@ -6,7 +6,7 @@
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:03:10 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/17 22:11:40 by ablaamim         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:22:00 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ typedef struct s_sem_philo
 	sem_t		*fork_right;
 	sem_t		*forks;
 	void		*philos;
-}	t_sem_philo	;
+}	t_sem_philo;
 
 void	ft_parse_and_initialize_sem(int argc, char **argv, t_sem_data *data);
 void	initializer_of_data_sem(t_sem_data *data, sem_t **forks, t_sem_philo **philos);
 void	sema_forks_initializer(int n_philos, t_sem_data *data, sem_t **forks, t_sem_philo **philos);
 void	sema_philos_initializer(int n_philos, t_sem_data *data, sem_t **forks, t_sem_philo **philos);
-void	philosophers_sem_simulator(int n_philos, t_sem_philo *philos);
+int		philosophers_sem_simulation(int n_philos, t_sem_philo *philos);
 int		process_constructor(pid_t *process, int (*f)(void *), t_sem_philo *philos);
 int		ft_routine_sem(void *ptr);
 void	sleeper(int time_ms, t_sem_philo *philo);
@@ -68,7 +68,9 @@ int		joining_process(t_sem_philo *philos);
 void	simulation_failed_sem(t_sem_data *data, sem_t *forks, t_sem_philo *philos);
 void	philosophers_exit(t_sem_data *data, sem_t *forks, t_sem_philo *philos, int exit_code);
 void	philo_sema_go_eat(t_sem_philo *philo);
-void	philo_go_sleep(t_sem_philo *philo);
-void	philo_go_think(t_sem_philo *philo);
+void	philo_sem_go_sleep(t_sem_philo *philo);
+void	philo_sem_go_think(t_sem_philo *philo);
+void	philo_sem_try_wait(t_sem_philo *philo);
+void	simulation_sema_end(t_sem_data *data, sem_t *forks, t_sem_philo *philos);
 
 #endif
