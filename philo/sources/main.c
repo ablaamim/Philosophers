@@ -5,62 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 15:26:26 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/15 17:47:31 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/09/24 18:10:36 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/09/26 02:36:45 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
 /*
- * Entry point of my program : main()
- * Init data and threads in order to start the simulation.
+ * Zero leaks and zero data race.
 */
 
-/*
- * ft_parse_and_initialize : parse arguments and manage error handling,
- * in order to filter input entred by user, also it initializes data with
- * appropriate values from stdin input.
-*/
+int	err(void)
+{
+	write(2, "Error\n", sizeof("Error\n"));
+	return (EXIT_FAILURE);
+}
 
-void	end_simulation(int n, t_data *data, pthread_mutex_t *forks, t_philo *philos)
+void	end_simulation(t_table *table, pthread_t *id)
 {
 	int	i;
 
 	i = -1;
-	while (++i < n && forks)
-		pthread_mutex_destroy(&forks[i]);
+	while (++i < table->number_philos)
+		pthread_join(id[i], 0x0);
 	i = -1;
-	while (++i < n && philos)
-	{
-		if (philos[i].supper_locker)
-			pthread_mutex_destroy(philos[i].supper_locker);
-		if (philos[i].meals_locker)
-			pthread_mutex_destroy(philos[i].meals_locker);
-		free(philos[i].supper_locker);
-		free(philos[i].meals_locker);
-	}
-	if (data->lock_printer)
-		pthread_mutex_destroy(data->lock_printer);
-	if (data->dinner_locker)
-		pthread_mutex_destroy(data->dinner_locker);
-	free(data->lock_printer);
-	free(data->dinner_locker);
-	free(forks);
-	free(philos);
+	while (++i < table->number_philos)
+		pthread_mutex_destroy(&table->philos[i].fork);
+	pthread_mutex_destroy(&table->printer);
+	pthread_mutex_destroy(&table->checker);
+	free(table->philos);
+	free(id);
 }
 
 int	main(int argc, char **argv)
 {
-	t_data			data;
-	pthread_mutex_t	*forks;
-	t_philo			*philosophers;
+	pthread_t	*id;
+	int			i;
+	t_table		table;
 
-	ft_parse_and_initialize(argc, argv, &data);
-	initializer_of_data(&data, &forks,  &philosophers);
-	initialize_forks(data.number_of_philos, &data, &forks, &philosophers);
-	initialize_philosophers(data.number_of_philos, &data, &forks, &philosophers);
-	philosophers_simulation(data.number_of_philos, philosophers);
-	end_simulation(data.number_of_philos, &data, forks, philosophers);
+	if ((argc < 5 || argc > 6) || parser(argc, argv, &table))
+		return (err());
+	id = (pthread_t *) malloc (table.number_philos * sizeof(pthread_t));
+	table.time_init = get_time();
+	i = -1;
+	while (++i < table.number_philos)
+	{
+		if (pthread_create(&id[i], 0x0, &philo_lc, &table.philos[i]))
+		{
+			write(2, THRD_ERR, sizeof(THRD_ERR));
+			free(table.philos);
+			free(id);
+			return (EXIT_FAILURE);
+		}
+		pthread_mutex_lock(&table.checker);
+		table.philos[i].last_eat = table.time_init;
+		pthread_mutex_unlock(&table.checker);
+	}
+	supervisor(&table);
+	end_simulation(&table, id);
 	return (EXIT_SUCCESS);
 }

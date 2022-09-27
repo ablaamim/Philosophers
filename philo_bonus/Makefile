@@ -5,49 +5,45 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/31 14:29:55 by ablaamim          #+#    #+#              #
-#    Updated: 2022/09/22 12:44:52 by ablaamim         ###   ########.fr        #
+#    Created: 2022/09/24 17:53:02 by ablaamim          #+#    #+#              #
+#    Updated: 2022/09/26 02:55:26 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_bonus
 
 CC = gcc
-
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-
+FLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g3
 RM = rm -rf
 
-HEADER = ../includes/philosophers.h
+HEADER = ./includes/philosophers_bonus.h
 
 SRC = ./sources/main.c \
-	 ./sources/ft_parse_and_initialize.c \
-	 ./sources/ft_routine_sem.c \
-	 ./sources/philosophers_sem_simulation.c \
-	 ./sources/sema_forks_and_philos_initializer.c \
-	 ./sources/time_manager.c \
-	 ./sources/actions_sem_philo.c \
-	 ../philo/sources/time_control.c \
-	 ../philo/sources/libft_utils.c \
-	 ./sources/simulation_failed.c \
+	  ./sources/parser_sem.c \
+	  ./sources/philo_life_cycle.c \
+	  ./sources/actions_printer.c \
+	  ../philo/sources/parser.c \
+	  ../philo/sources/tools.c \
+	  ../philo/sources/time_control.c \
+
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
+
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
-%.o : %.c Makefile $(HEADER)
+%.o:	%.c Makefile $(HEADER)
 	$(CC) $(FLAGS) -c $< -o $@
 
-clean :
-	$(RM) $(OBJ)
+clean:
+	$(RM) $(OBJ) $(OBJ_B)
 
-fclean :
-	$(RM) philo $(OBJ)
+fclean:	clean
+	$(RM) philo_bonus
 
+re: fclean all
 
-re : fclean all
-
-.PHONY : all clean fclean
+.PHONY: all clean fclean re bonus

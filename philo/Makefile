@@ -5,48 +5,44 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/31 14:29:55 by ablaamim          #+#    #+#              #
-#    Updated: 2022/09/16 16:42:49 by ablaamim         ###   ########.fr        #
+#    Created: 2022/09/24 17:53:02 by ablaamim          #+#    #+#              #
+#    Updated: 2022/09/25 22:19:35 by ablaamim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = gcc
-
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
-
+FLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g3
 RM = rm -rf
 
-HEADER = ../includes/philosophers.h
+HEADER = ./includes/philosophers.h
 
 SRC = ./sources/main.c \
-	  ./sources/initialize_and_parse_arguments.c \
-	  ./sources/libft_utils.c \
-	  ./sources/initialize_forks_and_philosophers.c \
-	  ./sources/simulation_failed.c \
-	  ./sources/action_philo.c \
-	  ./sources/ft_routine.c \
-	  ./sources/philosophers_simulation.c \
-	  ./sources/time_control.c
+	  ./sources/parser.c \
+	  ./sources/tools.c \
+	  ./sources/time_control.c \
+	  ./sources/philo_life_cycle.c \
+	  ./sources/actions_printer.c \
+
 
 OBJ = $(patsubst %.c,%.o,$(SRC))
+
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 
-%.o : %.c Makefile $(HEADER)
+%.o:	%.c Makefile $(HEADER)
 	$(CC) $(FLAGS) -c $< -o $@
 
-clean :
-	$(RM) $(OBJ)
+clean:
+	$(RM) $(OBJ) $(OBJ_B)
 
-fclean :
-	$(RM) philo $(OBJ)
+fclean:	clean
+	$(RM) philo
 
+re: fclean all
 
-re : fclean all
-
-.PHONY : all clean fclean
+.PHONY: all clean fclean re bonus

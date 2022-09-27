@@ -5,142 +5,107 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 14:03:24 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/15 19:18:21 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/09/24 17:56:06 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/09/26 03:00:45 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <unistd.h>
-# include <stdlib.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include <pthread.h>
-# include <ctype.h>
-# include <string.h>
-# include <stdbool.h>
 # include <sys/time.h>
-
-# define MANY_ARGS "Error : Too many argumnents\n"
-# define FEW_ARGS "Error : Too few arguments\n"
-# define MUTEX_ALLOC "Error : Failed to allocate mutex\n"
-# define PHILO_ALLOC "Error : Failed to allocate philosophers\n"
-
-# define TOOK_FORK 1
-# define IS_EATING 2
-# define IS_SLEEPING 3
-# define IS_THINKING 4
-# define HAS_DIED 5
+# include <stdatomic.h>
 
 /*
- * LIBFT UTILS :
+ * Error defines :
 */
 
-bool	ft_isdigit(int c);
-int		ft_atoi(char *str);
+# define THRD_ERR "Error : System enable to create thread\n"
 
 /*
- *     //////////////// DEFINE DATA CLASS : /////////////////
- *
- * number_of_philos : how many philosophers are in simulation, also number of 
- * forks..
- * time_to_die : If a philosopher does not start eating the end of his first
- * meal or at the start of the simulation he dies.
- * time_to_eat : time that a philosopher takes to eat his meal.
- * time_to_sleep : implicit name :p
- * number_of_times_each_philosopher_must_eat : if all philos eat the number of
- * times precised by this argument, the simulation must end.
+ * Message type class :
 */
 
-typedef struct s_data
+enum e_message
 {
-	int				dinner_over;
-	int				philo_is_alone;
-	int				number_of_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				number_of_times_each_philosopher_must_eat;
-	long			first_stamp;
-	pthread_mutex_t	*lock_printer;
-	pthread_mutex_t	*dinner_locker;
-}	t_data;
+	FORK,
+	EAT,
+	SLEEP,
+	THINK,
+	DIE
+};
 
 /*
- * ///////////////// DEFINE PHILOSOPHER  CLASS : //////////////////////
- *
- * This class defines philo attributes, it encapsulates t_data class.
- * t_philo.thread : Every philosopher is represented by a thread.
+enum e_philo
+{
+	right_philo,
+	left_philo
+};
+*/
+
+/*
+ * Philosopher class : Private
 */
 
 typedef struct s_philo
 {
-	t_data			*data;
-	int				meals;
-	long			last_supper;
-	pthread_mutex_t	*fork_left;
-	pthread_mutex_t	*fork_right;
 	int				enumerator;
-	pthread_t		thread;
-	pthread_mutex_t	*supper_locker;
-	pthread_mutex_t	*meals_locker;
+	atomic_int		eat_counter;
+	atomic_size_t	last_eat;
+	pthread_mutex_t	fork;
+	struct s_philo	*right_philo;
+	struct s_philo	*left_philo;
+	struct s_table	*table;
 }	t_philo;
 
 /*
- * PARSER / INITIALIZER.
+ * Philo table class : Public
 */
 
-void	ft_parse_and_initialize(int argc, char **argv, t_data *data);
-void	initializer_of_data(t_data *data, pthread_mutex_t **forks, t_philo \
-		**philosophers);
-void	initialize_forks(int n, t_data *data, pthread_mutex_t **forks, \
-		t_philo **philosophers);
-void	simulation_failed(int n_of_philos, t_data *data, pthread_mutex_t \
-		*forks, t_philo *philosophers);
-void	initialize_philosophers(int n_of_philos, t_data *data, pthread_mutex_t\
-		**forks, t_philo **philosophers);
+typedef struct s_table
+{
+	pthread_mutex_t	printer;
+	pthread_mutex_t	checker;
+	t_philo			*philos;
+	int				number_philos;
+	int				t_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				n_times_eat;
+	atomic_int		all_eat;
+	atomic_int		died;
+	atomic_size_t	time_init;
+}	t_table;
 
 /*
- * SIMULATOR :
+ * Tools :
 */
 
-int		philosophers_simulation(int n, t_philo *philos);
-void	*routine(void *ptr);
+size_t			ft_strlen(const char *str);
+int				ft_isdigit(int c);
+int				ft_strncmp(const char *str1, const char *str2, size_t n);
+int				ft_atoi(const char *str);
 
 /*
- * Timestamp control :
+ * Core functions :
 */
 
-void	my_sleep(int time_ms);
-long	time_stamp(void);
-long	time_now(long time_stamp);
-
-/*
- * Actions :
-*/
-
-void	actions_printer(t_philo *philo, int action);
-void	*philo_go_eat_alone(t_philo *philo);
-void	philo_eat(t_philo *philo);
-int		dinner_is_over(t_philo *philo);
-void	last_supper_setter(t_philo *philo);
-int		last_supper_getetr(t_philo *philo);
-void	meals_setter(t_philo *philo);
-int		meals_getter(t_philo *philo);
-void	philo_go_sleep(t_philo *philo);
-
-/*
- * SUPERVISOR :
-*/
-
-void	*philosophers_supervisor(void *ptr);
-int		all_of_them_ate(t_philo *philo);
-
-/*
- * END SIMULATION :
-*/
-
-void	end_simulation(int n, t_data *data, pthread_mutex_t *forks, t_philo *philos);
+int				parser(int argc, char **argv, t_table *table);
+int				args_checker(int argc, char **argv);
+int				number_validator(int argc, char **argv);
+int				int_validator(char *argv);
+void			ft_initialize_tab(t_table *table);
+atomic_size_t	get_time(void);
+void			*philo_lc(void *ptr);
+void			philo_go_eat(t_philo *philo);
+void			actions_printer(t_philo *philo, int action);
+char			*retrieve_message(int action);
+void			my_sleep(t_table *table, size_t time_sleep);
+void			supervisor(t_table *table);
+void			end_simulation(t_table *table, pthread_t *thread_id);
 
 #endif

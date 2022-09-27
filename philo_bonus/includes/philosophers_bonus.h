@@ -5,72 +5,83 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ablaamim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/16 17:03:10 by ablaamim          #+#    #+#             */
-/*   Updated: 2022/09/22 15:22:00 by ablaamim         ###   ########.fr       */
+/*   Created: 2022/09/25 22:08:11 by ablaamim          #+#    #+#             */
+/*   Updated: 2022/09/26 03:01:12 by ablaamim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_BONUS_H
-# define PHILO_BONUS_H
+#ifndef PHILOSOPHERS_BONUS_H
+# define PHILOSOPHERS_BONUS_H
 
-# include <unistd.h>
-# include <stdlib.h>
 # include <stdio.h>
-# include <pthread.h>
-# include <ctype.h>
-# include <stdbool.h>
+# include <semaphore.h>
+# include <stdlib.h>
+# include <sys/types.h>
 # include <fcntl.h>
 # include <sys/time.h>
-# include <semaphore.h>
+# include <sys/wait.h>
+# include <stdatomic.h>
 # include <signal.h>
+# include <pthread.h>
 
-# define TOOK_FORK 1
-# define IS_EATING 2
-# define IS_SLEEPING 3
-# define IS_THINKING 4
-# define HAS_DIED 5
+# define ERROR_SEM "Error : system failed to open semaphore\n"
+# define FORK_FAILED "Error : system fork() failed\n"
+# define EXIT_ALIVE 0
+# define EXIT_DEAD 1
 
-typedef struct s_sem_data
+/*
+ * Message type class :
+*/
+
+enum e_message_sem
 {
-	int		philo_is_alone;
-	int		number_of_philos;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		number_of_times_each_philosopher_must_eat;
-	long	first_stamp;
-	sem_t	*lock_print;
-}	t_sem_data;
+	FORK_SEM,
+	EAT_SEM,
+	SLEEP_SEM,
+	THINK_SEM,
+	DIE_SEM
+};
 
-typedef struct s_sem_philo
+/*
+ * Philo class : Private
+*/
+
+typedef struct s_philo_sem
 {
-	pid_t		process;
-	t_sem_data	*data;
-	int			enumerator;
-	int			meals;
-	long		last_supper;
-	sem_t		*fork_left;
-	sem_t		*fork_right;
-	sem_t		*forks;
-	void		*philos;
-}	t_sem_philo;
+	int					enumerator;
+	atomic_int			eat_counter;
+	atomic_size_t		last_eat;
+	struct s_philo_sem	*right_philo;
+	struct s_philo_sem	*left_philo;
+	struct s_table_sem	*table;
+	pid_t				process;
+	pthread_t			death_checker;
+}	t_philo_sem;
 
-void	ft_parse_and_initialize_sem(int argc, char **argv, t_sem_data *data);
-void	initializer_of_data_sem(t_sem_data *data, sem_t **forks, t_sem_philo **philos);
-void	sema_forks_initializer(int n_philos, t_sem_data *data, sem_t **forks, t_sem_philo **philos);
-void	sema_philos_initializer(int n_philos, t_sem_data *data, sem_t **forks, t_sem_philo **philos);
-int		philosophers_sem_simulation(int n_philos, t_sem_philo *philos);
-int		process_constructor(pid_t *process, int (*f)(void *), t_sem_philo *philos);
-int		ft_routine_sem(void *ptr);
-void	sleeper(int time_ms, t_sem_philo *philo);
-void	actions_sem_printer(t_sem_philo *philo, int action);
-int		joining_process(t_sem_philo *philos);
-void	simulation_failed_sem(t_sem_data *data, sem_t *forks, t_sem_philo *philos);
-void	philosophers_exit(t_sem_data *data, sem_t *forks, t_sem_philo *philos, int exit_code);
-void	philo_sema_go_eat(t_sem_philo *philo);
-void	philo_sem_go_sleep(t_sem_philo *philo);
-void	philo_sem_go_think(t_sem_philo *philo);
-void	philo_sem_try_wait(t_sem_philo *philo);
-void	simulation_sema_end(t_sem_data *data, sem_t *forks, t_sem_philo *philos);
+/*
+ * Philo table class : public.
+*/
+
+typedef struct s_table_sem
+{
+	sem_t			*printer;
+	sem_t			*checker;
+	sem_t			*forks;
+	t_philo_sem		*philos;
+	int				n_philos;
+	int				time_die;
+	int				time_eat;
+	int				time_slp;
+	int				n_times_eat;
+	atomic_int		all_eat;
+	atomic_int		died;
+	atomic_size_t	time_init;
+}	t_table_sem;
+
+int		parser_sem(int argc, char **argv, t_table_sem *table);
+void	ft_initialize_sem(t_table_sem *table);
+void	*philo_lc(void *ptr);
+void	actions_printer_sem(t_philo_sem *philo, int action);
+void	my_sleep_sem(t_table_sem *table, size_t time_slp);
 
 #endif
